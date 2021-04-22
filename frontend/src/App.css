@@ -1,0 +1,14 @@
+body {
+  background-color: rgb(172, 190, 243);
+}
+
+.main_page {
+  margin-top: 10vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.main_page > * {
+  margin: 1em 0;
+}
