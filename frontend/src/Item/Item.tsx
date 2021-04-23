@@ -1,6 +1,6 @@
 import React from 'react';
 import { CartItemType } from '../types';
-import { Card, Icon } from 'semantic-ui-react';
+import { Button, Card, Icon } from 'semantic-ui-react';
 
 type Props = {
   item: CartItemType;
@@ -13,6 +13,19 @@ const Item: React.FC<Props> = ({ item }) => {
       <Card>
         <img src={item.image} height={350} alt='' />
         <Card.Content>
+          <Card.Header>
+            <a
+              href='/'
+              style={{
+                fontWeight: 'bolder',
+                fontSize: '19px',
+                color: '#433333',
+              }}
+            >
+              {item.price}
+              <Icon name='euro sign' />
+            </a>
+          </Card.Header>
           <Card.Description>{item.title}</Card.Description>
           <Card.Meta>
             <span style={{ color: 'green' }}>Available</span>
@@ -24,12 +37,12 @@ const Item: React.FC<Props> = ({ item }) => {
             href='/'
             style={{
               fontWeight: 'bolder',
-              fontSize: '20px',
-              color: '#433333',
+              fontSize: '15px',
+              color: 'chocolate',
             }}
           >
-            <Icon name='euro sign' />
-            {item.price}
+            <Icon name='cart' />
+            Add to cart
           </a>
         </Card.Content>
       </Card>
