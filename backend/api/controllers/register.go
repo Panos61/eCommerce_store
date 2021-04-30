@@ -13,7 +13,7 @@ type Controller struct{}
 
 func (c Controller) Register(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var resp = map[string]interface{}{"status": "Success", "message": "Signed in successfully"}
+		var resp = map[string]interface{}{"status": "Success", "message": "Signed up successfully"}
 
 		user := &models.User{}
 
