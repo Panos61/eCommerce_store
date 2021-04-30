@@ -1,11 +1,9 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	"backend/api"
 )
 
 func main() {
-	log.Println("Server up and running")
-	http.ListenAndServe(":8000", nil)
+	api.Run()
 }
