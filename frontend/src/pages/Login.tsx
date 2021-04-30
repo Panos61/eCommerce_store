@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../pages/styles/login.style.css';
 import { Form, Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 interface FormValues {
   email: string;
@@ -15,11 +16,10 @@ interface Props {
 const Login: React.FC<Props> = () => {
   const [input, setInput] = useState({
     email: '',
-    username: '',
     password: '',
   });
 
-  const { email, username, password } = input;
+  const { email, password } = input;
 
   const onChange = (e: any) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -44,16 +44,7 @@ const Login: React.FC<Props> = () => {
             value={email}
           />
         </Form.Field>
-        <Form.Field>
-          <label>Username</label>
-          <input
-            type='text'
-            name='username'
-            placeholder='Username'
-            onChange={(e) => onChange(e)}
-            value={username}
-          />
-        </Form.Field>
+
         <Form.Field>
           <label>Password</label>
           <input
@@ -74,6 +65,10 @@ const Login: React.FC<Props> = () => {
         <Button type='submit' color='brown'>
           Login
         </Button>
+
+        <p>
+          First time user? <Link to='/register'>Create an account.</Link>{' '}
+        </p>
       </Form>
     </div>
   );
