@@ -2,9 +2,9 @@ import React, { SetStateAction, useState } from 'react';
 import './styles/main.style.css';
 import { useQuery } from 'react-query';
 import { CartItemType } from '../types';
-import Item from '../Item/Item';
+import Item from '../common/components/Item/Item';
 import { Grid, Loader, Menu, Sidebar } from 'semantic-ui-react';
-import Cart from '../components/Cart';
+import Cart from '../common/components/Cart';
 import { Link } from 'react-router-dom';
 
 const getAllProducts = async (): Promise<CartItemType[]> =>

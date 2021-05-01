@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/cart.style.css';
 import { Button, Icon } from 'semantic-ui-react';
-import { CartItemType } from '../types';
+import { CartItemType } from '../../../types';
 
 type Props = {
   item: CartItemType;

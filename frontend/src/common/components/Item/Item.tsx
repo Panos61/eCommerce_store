@@ -1,5 +1,5 @@
 import React from 'react';
-import { CartItemType } from '../types';
+import { CartItemType } from '../../../types';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 

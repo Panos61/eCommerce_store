@@ -1,6 +1,6 @@
 import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { MainPage, Login, Register } from './pages/index';
+import { MainPage, Login, Register } from '../pages/index';
 import { Container } from 'semantic-ui-react';
 
 function App() {
