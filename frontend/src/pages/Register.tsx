@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import '../pages/styles/login.style.css';
 import { Form, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../features/auth/actions';
 
 interface FormValues {
   email: string;
@@ -14,6 +16,8 @@ interface Props {
 }
 
 const Register: React.FC<Props> = () => {
+  const dispatch = useDispatch();
+
   const [input, setInput] = useState({
     email: '',
     username: '',
@@ -27,7 +31,7 @@ const Register: React.FC<Props> = () => {
   };
 
   const handleSubmit = async (e: any) => {
-    console.log(input);
+    dispatch(registerUser(email, username, password));
     e.preventDefault();
   };
 
