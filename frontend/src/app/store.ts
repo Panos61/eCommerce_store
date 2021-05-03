@@ -8,9 +8,6 @@ export interface RootState {
 }
 
 export const store = createStore(
-  //   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-  //     (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(),
-
   combineReducers({
     auth: authReducer,
   }),
