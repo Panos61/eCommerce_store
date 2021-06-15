@@ -10,7 +10,6 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-// CreateToken => Creates new token
 func CreateToken(id uint32) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["authorized"] = true
@@ -26,7 +25,7 @@ func TokenValid(r *http.Request) error {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		//is token.Method type of/can be converted to *jwt.SigningMethodHMAC ?
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
 		return []byte(os.Getenv("API_SECRET")), nil
 	})
@@ -61,7 +60,7 @@ func ExtractTokenID(r *http.Request) (uint32, error) {
 	tokenString := ExtractToken(r)
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
 		return []byte(os.Getenv("API_SECRET")), nil
 	})

@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -31,6 +32,19 @@ func (u *User) GetUser(db *sql.DB) (*User, error) {
 
 	err := db.QueryRow(sqlStatement, u.Email).Scan(&u.ID, &u.Email, &u.Username, &u.Password)
 	if err != nil {
+		return nil, err
+	}
+
+	return u, nil
+}
+
+func (u *User) GetUserByID(db *sql.DB, uid uint32) (*User, error) {
+
+	sqlStatement := "SELECT * FROM users WHERE id = $1"
+
+	err := db.QueryRow(sqlStatement, uid).Scan(&u.ID, &u.Email, &u.Username, &u.Password)
+	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 

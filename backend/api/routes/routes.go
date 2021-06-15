@@ -23,15 +23,13 @@ func Routes() http.Handler {
 	r.Use(middleware.ServeHTTP)
 
 	// Routes
-
 	r.HandleFunc("/register", controller.Register(db)).Methods("POST")
 	r.HandleFunc("/login", controller.Login(db)).Methods("POST")
 
 	// Auth API routes
 	s := r.PathPrefix("/api/v1").Subrouter()
-	s.Use(middleware.TokenAuthMiddleware)
 
-	s.HandleFunc("/hello", controller.Hello(db)).Methods("GET")
+	s.HandleFunc("/get-me", middleware.TokenAuthMiddleware(controller.GetMe(db))).Methods("GET", "OPTIONS")
 
 	return r
 }

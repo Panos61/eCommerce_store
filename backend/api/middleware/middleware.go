@@ -1,58 +1,50 @@
 package middleware
 
 import (
+	"backend/api/auth"
 	"backend/api/utils"
-	"context"
+	"fmt"
 	"net/http"
-	"os"
-	"strings"
-
-	"github.com/dgrijalva/jwt-go"
 )
 
 func ServeHTTP(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE, PATCH")
 		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Expose-Headers", "Authorization")
+
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+
 		if origin := r.Header.Get("Origin"); origin != "" {
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+			w.Header().Set("Content-Type", "application/json")
 			w.Header().Set("Access-Control-Allow-Headers",
 				"Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+			w.Header().Set("Access-Control-Expose-Headers", "Authorization")
 
 		}
+
 		next.ServeHTTP(w, r)
 	})
 
 }
 
-func TokenAuthMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var resp = map[string]interface{}{"status": "failed", "message": "Missing authorization token"}
-
-		var header = r.Header.Get("Authorization")
-		header = strings.TrimSpace(header)
-
-		if header == "" {
-			utils.JSONresp(w, http.StatusForbidden, resp)
-			return
-		}
-
-		token, err := jwt.Parse(header, func(t *jwt.Token) (interface{}, error) {
-			return []byte(os.Getenv("JWT_SECRET")), nil
-		})
+func TokenAuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		err := auth.TokenValid(r)
 
 		if err != nil {
-			resp["status"] = "Failed"
-			resp["message"] = "Invalid token"
-			utils.JSONresp(w, http.StatusForbidden, resp)
+			fmt.Println(err)
+			utils.JSONresp(w, http.StatusForbidden, "Unauthorized")
 			return
 		}
-
-		claims, _ := token.Claims.(jwt.MapClaims)
-
-		ctx := context.WithValue(r.Context(), "ID", claims["ID"])
-		next.ServeHTTP(w, r.WithContext(ctx))
-	})
+		next(w, r)
+	}
 
 }
