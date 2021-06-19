@@ -1,0 +1,63 @@
+.login-btn {
+  background-color: green;
+  display: inline-block;
+  padding: 0.4em 2.1em;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 2em;
+  margin-top: 5px;
+  font-weight: bold;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.login-btn:hover {
+  transition: 5ms;
+  background-color: white;
+  text-decoration: underline;
+  color: green;
+}
+
+.mainpage-btn {
+  margin-left: 1.5em;
+  background-color: orangered;
+  display: inline-block;
+  padding: 0.4em 2.1em;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 2em;
+  margin-top: 5px;
+  font-weight: bold;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.mainpage-btn:hover {
+  transition: 5ms;
+  background-color: white;
+  text-decoration: underline;
+  color: orangered;
+}
+
+.logout-btn {
+  margin-left: 1.5em;
+  display: inline-block;
+  padding: 0.4em 2.1em;
+  margin-top: 5px;
+  font-weight: bold;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  color: green;
+}
+
+@media screen and (max-width: 400px) {
+  .logout-btn {
+    padding: 0.4em 1.1em;
+  }
+}

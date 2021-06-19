@@ -1,11 +1,11 @@
-import React, { SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import './styles/main.style.css';
 import { useQuery } from 'react-query';
 import { CartItemType } from '../types';
 import Item from '../common/components/Item/Item';
 import { Grid, Loader, Menu, Sidebar } from 'semantic-ui-react';
 import Cart from '../common/components/Cart';
-import { Link } from 'react-router-dom';
+import NavBar from './components/NavBar';
 
 const getAllProducts = async (): Promise<CartItemType[]> =>
   await (await fetch('http://fakestoreapi.com/products')).json();
@@ -17,17 +17,6 @@ type Props = {
 };
 
 const MainPage: React.FC<Props> = () => {
-  const pathname = window.location.pathname;
-
-  const path = pathname === '/' ? 'welcome' : pathname.substr(1);
-
-  const [activeItem, setActiveItem] = useState(path);
-
-  const handleItemClick = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    { name }: SetStateAction<any>
-  ) => setActiveItem(name);
-
   // Toggle sidebar
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -80,33 +69,8 @@ const MainPage: React.FC<Props> = () => {
 
   return (
     <>
-      {/* MENU BAR */}
-      <Menu pointing size='large' color='brown' fixed='top'>
-        <Menu.Item
-          name='shop'
-          active={activeItem === 'shop'}
-          onClick={handleItemClick}
-          as={Link}
-          to='/'
-        />
-
-        <Menu.Menu position='right'>
-          <Menu.Item
-            name='login'
-            active={activeItem === 'login'}
-            onClick={handleItemClick}
-            as={Link}
-            to='/login'
-          />
-          <Menu.Item
-            name='cart'
-            active={activeItem === 'cart'}
-            onClick={handleShow}
-            icon='cart'
-          />
-        </Menu.Menu>
-      </Menu>
-
+      {/* NAV BAR */}
+      <NavBar onClick={handleShow} />
       {/* SIDEBAR */}
       <Grid columns={1}>
         <Grid.Column>
