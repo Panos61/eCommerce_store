@@ -9,8 +9,8 @@ import (
 
 type User struct {
 	ID       int    `json:"id"`
-	Username string `json:"username"`
 	Email    string `json:"email"`
+	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
@@ -30,7 +30,7 @@ func (u *User) GetUser(db *sql.DB) (*User, error) {
 
 	sqlStatement := "SELECT * FROM users WHERE email = $1"
 
-	err := db.QueryRow(sqlStatement, u.Email).Scan(&u.ID, &u.Email, &u.Username, &u.Password)
+	err := db.QueryRow(sqlStatement, u.Email).Scan(&u.ID, &u.Username, &u.Email, &u.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (u *User) GetUserByID(db *sql.DB, uid uint32) (*User, error) {
 
 	sqlStatement := "SELECT * FROM users WHERE id = $1"
 
-	err := db.QueryRow(sqlStatement, uid).Scan(&u.ID, &u.Email, &u.Username, &u.Password)
+	err := db.QueryRow(sqlStatement, uid).Scan(&u.ID, &u.Username, &u.Email, &u.Password)
 	if err != nil {
 		fmt.Println(err)
 		return nil, err

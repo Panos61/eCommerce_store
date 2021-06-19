@@ -4,12 +4,12 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 export interface RootState {
-  auth: AuthState;
+  Auth: AuthState;
 }
 
 export const store = createStore(
   combineReducers({
-    auth: authReducer,
+    Auth: authReducer,
   }),
   composeWithDevTools(applyMiddleware(thunk))
 );

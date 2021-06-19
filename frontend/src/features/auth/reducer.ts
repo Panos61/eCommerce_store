@@ -1,10 +1,13 @@
 import { AnyAction } from 'redux';
+import isEmpty from 'lodash/isEmpty';
 import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   LOADING,
+  SET_CURRENT_USER,
+  LOGOUT,
 } from './actionTypes';
 
 interface User {
@@ -15,7 +18,6 @@ interface User {
 
 export interface AuthState {
   isAuthenticated: boolean;
-  //currentUser?: User;
   user?: User;
   isLoading: boolean;
 }
@@ -45,13 +47,21 @@ export const authReducer = (
         user: action.payload,
         isLoading: false,
       };
-    // case SET_CURRENT_USER:
-    //   return {
-    //     ...state,
-    //     user: action.payload,
-    //     isAuthenticated: !isEmpty(action.payload),
-    //     isLoading: false,
-    //   };
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        user: action.payload,
+        isAuthenticated: !isEmpty(action.payload),
+        isLoading: false,
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: isEmpty(localStorage.getItem('token')),
+        isLoading: false,
+      };
     case REGISTER_FAIL:
     case LOGIN_FAIL:
       return {

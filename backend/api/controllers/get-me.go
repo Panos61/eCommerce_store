@@ -32,8 +32,8 @@ func (c Controller) GetMe(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		resp["user"] = currentUser
-		utils.JSONresp(w, http.StatusOK, resp)
+		//resp["user"] = currentUser
+		utils.JSONresp(w, http.StatusOK, currentUser)
 
 	}
 }

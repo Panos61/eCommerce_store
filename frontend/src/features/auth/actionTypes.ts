@@ -2,6 +2,8 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const LOGOUT = 'LOGOUT';
 export const LOADING = 'LOADING';
 
 type LOGIN_SUCCESS = typeof LOGIN_SUCCESS;
@@ -29,3 +31,19 @@ export interface RegisterFailureAction {
 }
 
 export type RegisterActions = RegisterSuccessAction | RegisterFailureAction;
+
+type SET_CURRENT_USER = typeof SET_CURRENT_USER;
+
+export interface CurrentUser {
+  type: SET_CURRENT_USER;
+}
+
+export type CurrentUserState = CurrentUser;
+
+type LOGOUT = typeof LOGOUT;
+
+export interface LogoutAction {
+  type: LOGOUT;
+}
+
+export type LogoutActionState = LogoutAction;
