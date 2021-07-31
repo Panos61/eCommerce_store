@@ -13,7 +13,7 @@ const getAllProducts = async (): Promise<CartItemType[]> =>
 type Props = {
   cartItems: CartItemType[];
   addToCart: (clickedItem: CartItemType) => void;
-  removeFromCart: (id: number) => void;
+  removeFromCart: (id: number | string) => void;
 };
 
 const MainPage: React.FC<Props> = () => {
@@ -46,7 +46,7 @@ const MainPage: React.FC<Props> = () => {
   };
 
   // Remove from the cart function
-  const handleRemoveFromCart = (id: number) => {
+  const handleRemoveFromCart = (id: number | string) => {
     setCartItems((prev) =>
       prev.reduce((ack, item) => {
         if (item.id === id) {

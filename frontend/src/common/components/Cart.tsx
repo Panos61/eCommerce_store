@@ -6,10 +6,13 @@ import { CartItemType } from '../../types';
 type Props = {
   cartItems: CartItemType[];
   addToCart: (clickedItem: CartItemType) => void;
-  removeFromCart: (id: number) => void;
+  removeFromCart: (id: number | string) => void;
 };
 
 const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
+  const calculatePrice = (items: CartItemType[]) =>
+    items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
+
   return (
     <div>
       <h3>
@@ -24,6 +27,9 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
           removeFromCart={removeFromCart}
         />
       ))}
+      <h2>
+        {calculatePrice(cartItems).toFixed(2)} <Icon name='euro sign' />
+      </h2>
     </div>
   );
 };

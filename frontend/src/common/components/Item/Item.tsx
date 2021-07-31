@@ -2,6 +2,8 @@ import React from 'react';
 import { CartItemType } from '../../../types';
 import { Button, Card, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../../features/cart/actions';
 
 type Props = {
   item: CartItemType;
@@ -9,6 +11,8 @@ type Props = {
 };
 
 const Item: React.FC<Props> = ({ item, handleAddToCart }) => {
+  const dispatch = useDispatch();
+
   return (
     <div>
       <Card>
@@ -35,7 +39,10 @@ const Item: React.FC<Props> = ({ item, handleAddToCart }) => {
         </Card.Content>
         <Card.Content extra>
           <Button
-            onClick={() => handleAddToCart(item)}
+            onClick={() => {
+              handleAddToCart(item);
+              dispatch(addItem(item));
+            }}
             style={{
               fontWeight: 'bolder',
               fontSize: '15px',
